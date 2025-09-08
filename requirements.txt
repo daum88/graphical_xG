@@ -1,9 +1,28 @@
-pandas
-numpy
-joblib
-scikit-learn
-xgboost
-imbalanced-learn
-statsbombpy
-shap
-matplotlib
+# Core dependencies
+numpy>=1.21.0
+pandas>=1.3.0
+scikit-learn>=1.0.0
+joblib>=1.0.0
+
+# Machine learning
+xgboost>=1.5.0
+imbalanced-learn>=0.8.0
+shap>=0.40.0
+
+# Data sources
+statsbombpy>=1.0.0
+
+# GUI and visualization
+PIL>=8.0.0
+Pillow>=8.0.0
+matplotlib>=3.5.0
+seaborn>=0.11.0
+
+# Web interface
+streamlit>=1.49.0
+plotly>=5.0.0
+altair>=4.0.0
+
+# Utilities
+requests>=2.25.0
+python-dateutil>=2.8.0

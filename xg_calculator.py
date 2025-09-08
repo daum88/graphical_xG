@@ -88,20 +88,29 @@ def calculate_xg():
 
     shot_type_feature = f"shot_type_{shot_type.get()}"
     body_part_feature = f"shot_body_part_{body_part.get()}"
-    pressure_feature = "under_pressure_True"
-
+    
     if shot_type_feature in input_dict:
         input_dict[shot_type_feature] = 1
     if body_part_feature in input_dict:
         input_dict[body_part_feature] = 1
-    if pressure_feature in input_dict:
-        input_dict[pressure_feature] = pressure_var.get()
+    
+    # Set pressure feature (handle multiple under_pressure columns)
+    if pressure_var.get():
+        for feature in features:
+            if "under_pressure" in feature:
+                input_dict[feature] = 1
+    
+    # Set default values for additional features
+    if "time_remaining" in input_dict:
+        input_dict["time_remaining"] = 45  # Default: 45 minutes remaining
+    if "rebound" in input_dict:
+        input_dict["rebound"] = 0  # Default: not a rebound
 
     input_df = pd.DataFrame([input_dict])
 
     input_df[features] = scaler.transform(input_df[features])
 
-    xg = xg_model.predict_proba(input_df[features])[0][1]
+    xg = xg_model.predict(input_df[features])[0]
     result_label.config(text=f"Expected Goals (xG): {xg:.3f}")
 
 calculate_button = tk.Button(root, text="Calculate xG", command=calculate_xg)
